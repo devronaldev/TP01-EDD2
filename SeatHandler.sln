@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeatHandler", "SeatHandler\SeatHandler.csproj", "{32C303B4-CDAC-4A8D-A4A5-778C787CF070}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFAPP", "WPFAPP\WPFAPP.csproj", "{AB1B047C-7438-4AB8-BE8A-B4B401196C5D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFAAPP", "WFAAPP\WFAAPP.csproj", "{4B80844E-2142-4D83-B3B4-0733FD5758F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +14,9 @@ Global
 		{32C303B4-CDAC-4A8D-A4A5-778C787CF070}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32C303B4-CDAC-4A8D-A4A5-778C787CF070}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32C303B4-CDAC-4A8D-A4A5-778C787CF070}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AB1B047C-7438-4AB8-BE8A-B4B401196C5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AB1B047C-7438-4AB8-BE8A-B4B401196C5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AB1B047C-7438-4AB8-BE8A-B4B401196C5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AB1B047C-7438-4AB8-BE8A-B4B401196C5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B80844E-2142-4D83-B3B4-0733FD5758F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B80844E-2142-4D83-B3B4-0733FD5758F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B80844E-2142-4D83-B3B4-0733FD5758F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B80844E-2142-4D83-B3B4-0733FD5758F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
