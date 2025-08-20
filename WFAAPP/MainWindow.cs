@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using SeatHandler;
 using System.Collections.Generic;
+using System.Text;
 
 namespace WFAAPP
 {
@@ -17,12 +18,18 @@ namespace WFAAPP
         
         private readonly char[] rowLetters = {'O', 'N', 'M', 'L', 'K', 'J', 'I', 'H', 'G', 'F', 'E', 'D', 'C', 'B', 'A'};
         private const int TotalRows = 15;
-        private const int TotalSeatsPerRow = 10;
+        private const int TotalSeatsPerRow = 40;
         
         public MainWindow()
         {
             InitializeComponent();
+            WindowState = FormWindowState.Maximized;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false; 
+            MinimizeBox = false;
             InitializeApplicationLayout();
+            ResizeBegin += (this.MainWindow_ResizeBegin);
+            ResizeEnd += (this.MainWindow_ResizeEnd);
         }
 
         private void InitializeApplicationLayout()
@@ -46,16 +53,17 @@ namespace WFAAPP
             mainTablePanel.ColumnCount = 1;
             mainTablePanel.RowCount = 2;
             
-            mainTablePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 75F));
-            mainTablePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            mainTablePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 90F));
+            mainTablePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
         }
 
         private void ConfigureSeatPanel()
         {
             seatTablePanel = new TableLayoutPanel();
             seatTablePanel.Dock = DockStyle.Fill;
-            seatTablePanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+            seatTablePanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
             seatTablePanel.BackColor = Color.LightGray;
+            seatTablePanel.Margin = new Padding(2);
 
             seatTablePanel.ColumnCount = TotalSeatsPerRow;
             seatTablePanel.RowCount = TotalRows;
@@ -78,12 +86,30 @@ namespace WFAAPP
             optionsPanel = new Panel();
             optionsPanel.Dock = DockStyle.Fill;
             optionsPanel.BackColor = Color.LightBlue;
+            
+            var buttonsOptionTable = new TableLayoutPanel();
+            buttonsOptionTable.Dock = DockStyle.Fill;
+            buttonsOptionTable.ColumnCount = 2;
+            buttonsOptionTable.RowCount = 1;
+            
+            
+            buttonsOptionTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            buttonsOptionTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            buttonsOptionTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            
+            optionsPanel.Controls.Add(buttonsOptionTable);
 
             Button btnBook = new Button();
             btnBook.Text = "Reservar";
-            btnBook.Dock = DockStyle.Top;
-            optionsPanel.Controls.Add(btnBook);
+            btnBook.Dock = DockStyle.Fill;
+            buttonsOptionTable.Controls.Add(btnBook, 0, 0);
             btnBook.Click += BookClicked;
+
+            Button btnBoxOffice = new Button();
+            btnBoxOffice.Text = "Faturamento";
+            btnBoxOffice.Dock = DockStyle.Fill;
+            buttonsOptionTable.Controls.Add(btnBoxOffice, 1, 0);
+            btnBoxOffice.Click += ShowBoxOffice;
         }
 
         private void GenerateSeatButtons()
@@ -103,7 +129,7 @@ namespace WFAAPP
                     seatButton.BackColor = Color.LightGreen;
                     seatButton.Dock = DockStyle.Fill;
                     seatButton.Margin = new Padding(2);
-                    seatButton.Tag = new int[] { i, j }; // Use a propriedade Tag
+                    seatButton.Tag = new int[] { i, j };
                     seatButton.Click += SelectSeats;
                     seatTablePanel.Controls.Add(seatButton, j, i);
                 }
@@ -150,6 +176,28 @@ namespace WFAAPP
                 btn.BackColor = Color.Red;
             }
             selectedButtons.Clear();
+        }
+
+        private void ShowBoxOffice(object sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Total de assentos reservados: {Seats.CountBookSeats()}");
+            sb.AppendLine($"O Faturamento total é de: R${Seats.BoxOffice}");
+            MessageBox.Show(sb.ToString(), "Faturamento", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        
+        // Evento que ocorre quando o redimensionamento começa
+        private void MainWindow_ResizeBegin(object sender, EventArgs e)
+        {
+            // Suspende o layout do painel principal
+            mainTablePanel.SuspendLayout();
+        }
+
+        // Evento que ocorre quando o redimensionamento termina
+        private void MainWindow_ResizeEnd(object sender, EventArgs e)
+        {
+            // Ativa o layout novamente
+            mainTablePanel.ResumeLayout(true);
         }
     }
 }

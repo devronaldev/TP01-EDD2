@@ -11,12 +11,13 @@ public class Map
     /// </summary>
     public Map()
     {
+        //Mapa invertido
         Seats = new Seat[15, 40];
         for (int i = 0; i < 5; i++)
         {
             for (int j = 0; j < 40; j++)
             {
-                Seats[i, j] = new Seat(50);
+                Seats[i, j] = new Seat(15);
             }
         }
 
@@ -32,7 +33,7 @@ public class Map
         {
             for (int j = 0; j < 40; j++)
             {
-                Seats[i, j] = new Seat(15);
+                Seats[i, j] = new Seat(50);
             }
         }
 
@@ -128,5 +129,18 @@ public class Map
             }
         }
         return unoccupied;
+    }
+
+    public int CountBookSeats()
+    {
+        int count = 0;
+        foreach (var seat in Seats)
+        {
+            if (seat.Occupied)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 }
